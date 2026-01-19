@@ -1,3 +1,5 @@
+'use server';
+
 import ProductDetailClient from '@/components/ProductDetailClient';
 import { products } from '@/data/products';
 
