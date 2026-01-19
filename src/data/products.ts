@@ -78,7 +78,7 @@ export const products: Product[] = [
   {
     id: '4',
     name: 'Lụa Tơ Tằm Đồng',
-    slug: 'lua-to-tam-ling',
+    slug: 'lua-to-tam-dong',
     description: 'Lụa Tơ Tằm Đồng là màu trắc khánh, nhạ trình vải tầu thác cách mặt cần rống phác chầm với áo một hiện thảng thời nét như hình.',
     size: '50x8:cm',
     origin: 'Kho Vải Hân Hân - Việt Nam',
