@@ -413,6 +413,23 @@ export async function getAllBanners(): Promise<Banner[]> {
   }
 }
 
+export async function getBannerById(id: string): Promise<Banner | null> {
+  try {
+    const docRef = doc(db, 'banners', id);
+    const docSnap = await getDoc(docRef);
+    
+    if (!docSnap.exists()) return null;
+    
+    return {
+      id: docSnap.id,
+      ...docSnap.data()
+    } as Banner;
+  } catch (error) {
+    console.error('Error fetching banner:', error);
+    return null;
+  }
+}
+
 export async function createBanner(data: Omit<Banner, 'id'>): Promise<string> {
   try {
     const bannersRef = collection(db, 'banners');

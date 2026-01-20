@@ -58,10 +58,10 @@ export default async function AdminBannersPage() {
                       <span className="text-gray-400 text-sm">○ Inactive</span>
                     )}
                     <Link 
-                      href={`/admin/banners/edit/${banner.id}`}
-                      className="text-blue-600 hover:underline text-sm"
+                      href={`/admin/banners/${banner.id}`}
+                      className="text-blue-600 hover:underline text-sm font-medium"
                     >
-                      Edit
+                      ✏️ Chỉnh sửa
                     </Link>
                   </div>
                 </div>

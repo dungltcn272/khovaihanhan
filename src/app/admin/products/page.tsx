@@ -69,10 +69,10 @@ export default async function AdminProductsPage() {
                   </td>
                   <td className="px-6 py-4">
                     <Link 
-                      href={`/admin/products/edit/${product.id}`}
-                      className="text-blue-600 hover:underline mr-4"
+                      href={`/admin/products/${product.id}`}
+                      className="text-blue-600 hover:underline font-medium"
                     >
-                      Edit
+                      ✏️ Chỉnh sửa
                     </Link>
                   </td>
                 </tr>
