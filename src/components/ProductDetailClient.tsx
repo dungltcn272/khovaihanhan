@@ -188,13 +188,15 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
           </p>
 
           <div className="space-y-4 mb-6">
-            <div className="flex items-start">
-              <span className="text-[#3d3226] font-semibold min-w-[120px]">Kích thước:</span>
-              <span className="text-gray-700">{product.size}</span>
-            </div>
+            {product.size && (
+              <div className="flex items-start">
+                <span className="text-[#3d3226] font-semibold min-w-[120px]">Kích thước:</span>
+                <span className="text-gray-700">{product.size}</span>
+              </div>
+            )}
             <div className="flex items-start">
               <span className="text-[#3d3226] font-semibold min-w-[120px]">Xuất xứ:</span>
-              <span className="text-gray-700">{product.origin}</span>
+              <span className="text-gray-700">{product.origin ?? 'Việt Nam'}</span>
             </div>
           </div>
 

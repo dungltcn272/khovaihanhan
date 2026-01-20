@@ -38,8 +38,8 @@ export interface Product {
   name: string;
   slug: string;
   description: string;
-  size: string;
-  origin: string;
+  size?: string;
+  origin?: string;
   pricePerMeter: number;
   discountPercent: number;
   category: 'featured' | 'new' | 'bestseller';

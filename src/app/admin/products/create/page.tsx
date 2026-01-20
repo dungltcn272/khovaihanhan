@@ -14,8 +14,7 @@ export default function CreateProductPage() {
     name: '',
     slug: '',
     description: '',
-    size: '',
-    origin: '',
+    origin: 'Việt Nam',
     pricePerMeter: 0,
     discountPercent: 0,
     category: 'featured' as 'featured' | 'new' | 'bestseller',
@@ -113,35 +112,18 @@ export default function CreateProductPage() {
           />
         </div>
 
-        {/* Size & Origin */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-          <div>
-            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-              Kích Thước *
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.size}
-              onChange={(e) => setFormData({ ...formData, size: e.target.value })}
-              className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
-              placeholder="150cm x 50m"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-              Xuất Xứ *
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.origin}
-              onChange={(e) => setFormData({ ...formData, origin: e.target.value })}
-              className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
-              placeholder="Việt Nam"
-            />
-          </div>
+        {/* Origin */}
+        <div>
+          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
+            Xuất Xứ
+          </label>
+          <input
+            type="text"
+            value={formData.origin}
+            onChange={(e) => setFormData({ ...formData, origin: e.target.value })}
+            className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
+            placeholder="Việt Nam"
+          />
         </div>
 
         {/* Price & Discount */}
@@ -154,8 +136,12 @@ export default function CreateProductPage() {
               type="number"
               required
               min="0"
-              value={formData.pricePerMeter}
-              onChange={(e) => setFormData({ ...formData, pricePerMeter: Number(e.target.value) })}
+              value={formData.pricePerMeter || ''}
+              onChange={(e) => {
+                const raw = e.target.value;
+                const sanitized = raw.replace(/^0+(?=\d)/, '');
+                setFormData({ ...formData, pricePerMeter: sanitized === '' ? 0 : Number(sanitized) });
+              }}
               className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
               placeholder="50000"
             />
