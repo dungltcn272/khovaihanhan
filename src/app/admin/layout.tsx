@@ -68,13 +68,13 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
-            <h1 className="text-xl md:text-2xl font-bold text-gray-800">🏪 Admin</h1>
+            <h1 className="text-xl md:text-2xl font-bold text-gray-800">🏪 Quản Lý</h1>
           </div>
           <button
             onClick={handleLogout}
             className="px-3 md:px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition text-sm md:text-base"
           >
-            Đăng xuất
+            Thoát
           </button>
         </div>
       </header>
@@ -100,38 +100,38 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               href="/admin/banners"
               className="block px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition"
             >
-              🎨 Banners
+              🎨 Banner
             </Link>
             <Link 
               href="/admin/products"
               className="block px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition"
             >
-              📦 Products
+              📦 Sản Phẩm
             </Link>
             <Link 
               href="/admin/fabrics"
               className="block px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition"
             >
-              🧵 Fabrics
+              🧵 Vải
             </Link>
             <Link 
               href="/admin/messages"
               className="block px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition"
             >
-              💬 Messages
+              💬 Tin Nhắn
             </Link>
             <Link 
               href="/admin/contact-info"
               className="block px-4 py-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition"
             >
-              👤 Contact Info
+              👤 Liên Hệ
             </Link>
             <hr className="my-4" />
             <Link 
               href="/"
               className="block px-4 py-3 rounded-lg hover:bg-gray-100 text-gray-600 transition"
             >
-              ← Back to Site
+              ← Về Trang Chủ
             </Link>
           </nav>
         </aside>

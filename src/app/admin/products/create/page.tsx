@@ -59,13 +59,13 @@ export default function CreateProductPage() {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Create New Product</h2>
+      <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Tạo Sản Phẩm Mới</h2>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-lg md:rounded-xl shadow p-4 md:p-8 space-y-6">
         {/* Product Name */}
         <div>
           <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-            Product Name *
+            Tên Sản Phẩm *
           </label>
           <input
             type="text"
@@ -86,7 +86,7 @@ export default function CreateProductPage() {
         {/* Slug (auto-generated) */}
         <div>
           <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-            Slug (URL)
+            Đường Dẫn (URL)
           </label>
           <input
             type="text"
@@ -95,13 +95,13 @@ export default function CreateProductPage() {
             className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg bg-gray-50 text-sm md:text-base"
             placeholder="vai-lua-to-tam-cao-cap"
           />
-          <p className="text-xs md:text-sm text-gray-500 mt-1">Auto-generated from product name</p>
+          <p className="text-xs md:text-sm text-gray-500 mt-1">Tự động sinh từ tên sản phẩm</p>
         </div>
 
         {/* Description */}
         <div>
           <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-            Description *
+            Mô Tả *
           </label>
           <textarea
             required
@@ -117,7 +117,7 @@ export default function CreateProductPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           <div>
             <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-              Size *
+              Kích Thước *
             </label>
             <input
               type="text"
@@ -131,7 +131,7 @@ export default function CreateProductPage() {
 
           <div>
             <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-              Origin *
+              Xuất Xứ *
             </label>
             <input
               type="text"
@@ -148,7 +148,7 @@ export default function CreateProductPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           <div>
             <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-              Price per Meter (đ) *
+              Giá Mỗi Mét (đ) *
             </label>
             <input
               type="number"
@@ -163,7 +163,7 @@ export default function CreateProductPage() {
 
           <div>
             <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-              Discount (%)
+              Giảm Giá (%)
             </label>
             <input
               type="number"
@@ -180,16 +180,16 @@ export default function CreateProductPage() {
         {/* Category */}
         <div>
           <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
-            Category *
+            Danh Mục *
           </label>
           <select
             value={formData.category}
             onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
             className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
           >
-            <option value="featured">Featured</option>
-            <option value="new">New</option>
-            <option value="bestseller">Bestseller</option>
+            <option value="featured">Nổi Bật</option>
+            <option value="new">Mới</option>
+            <option value="bestseller">Bán Chạy</option>
           </select>
         </div>
 
@@ -223,7 +223,7 @@ export default function CreateProductPage() {
             className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
           />
           <label htmlFor="isActive" className="text-xs md:text-sm font-medium text-gray-700">
-            Active (show on website)
+            Kích Hoạt (hiển trên website)
           </label>
         </div>
 
@@ -234,14 +234,14 @@ export default function CreateProductPage() {
             disabled={loading}
             className="w-full md:w-auto px-4 md:px-6 py-3 md:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50 font-medium text-sm md:text-base"
           >
-            {loading ? 'Creating...' : 'Create Product'}
+            {loading ? 'Đang tạo...' : 'Tạo Sản Phẩm'}
           </button>
           <button
             type="button"
             onClick={() => router.back()}
             className="w-full md:w-auto px-4 md:px-6 py-3 md:py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-medium text-sm md:text-base"
           >
-            Cancel
+            Hủy
           </button>
         </div>
       </form>

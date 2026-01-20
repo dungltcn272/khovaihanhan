@@ -9,23 +9,23 @@ export default async function AdminProductsPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold">Products</h2>
+        <h2 className="text-3xl font-bold">Sản Phẩm</h2>
         <Link 
           href="/admin/products/create"
           className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
-          + Add Product
+          + Thêm Sản Phẩm
         </Link>
       </div>
 
       {products.length === 0 ? (
         <div className="bg-white rounded-xl p-12 text-center">
-          <p className="text-gray-500 mb-4">No products yet</p>
+          <p className="text-gray-500 mb-4">Chưa có sản phẩm nào</p>
           <Link 
             href="/admin/products/create"
             className="text-blue-600 hover:underline"
           >
-            Create your first product
+            Tạo sản phẩm đầu tiên
           </Link>
         </div>
       ) : (
@@ -33,12 +33,12 @@ export default async function AdminProductsPage() {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Image</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Name</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Price</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Category</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Status</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Actions</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Ảnh</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Tên</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Giá</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Danh Mục</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Trạng Thái</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Hành Động</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">

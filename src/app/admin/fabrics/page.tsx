@@ -9,23 +9,23 @@ export default async function AdminFabricsPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold">Fabrics</h2>
+        <h2 className="text-3xl font-bold">Vải</h2>
         <Link 
           href="/admin/fabrics/create"
           className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
-          + Add Fabric
+          + Thêm Vải
         </Link>
       </div>
 
       {fabrics.length === 0 ? (
         <div className="bg-white rounded-xl p-12 text-center">
-          <p className="text-gray-500 mb-4">No fabrics yet</p>
+          <p className="text-gray-500 mb-4">Chưa có vải nào</p>
           <Link 
             href="/admin/fabrics/create"
             className="text-blue-600 hover:underline"
           >
-            Create your first fabric
+            Tạo vải đầu tiên
           </Link>
         </div>
       ) : (

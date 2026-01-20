@@ -9,23 +9,23 @@ export default async function AdminBannersPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold">Banners</h2>
+        <h2 className="text-3xl font-bold">Banner</h2>
         <Link 
           href="/admin/banners/create"
           className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
-          + Add Banner
+          + Thêm Banner
         </Link>
       </div>
 
       {banners.length === 0 ? (
         <div className="bg-white rounded-xl p-12 text-center">
-          <p className="text-gray-500 mb-4">No banners yet</p>
+          <p className="text-gray-500 mb-4">Chưa có banner nào</p>
           <Link 
             href="/admin/banners/create"
             className="text-blue-600 hover:underline"
           >
-            Create your first banner
+            Tạo banner đầu tiên
           </Link>
         </div>
       ) : (
