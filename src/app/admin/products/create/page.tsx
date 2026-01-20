@@ -58,13 +58,13 @@ export default function CreateProductPage() {
   };
 
   return (
-    <div className="max-w-4xl">
-      <h2 className="text-3xl font-bold mb-8">Create New Product</h2>
+    <div className="w-full max-w-4xl mx-auto">
+      <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Create New Product</h2>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow p-8 space-y-6">
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg md:rounded-xl shadow p-4 md:p-8 space-y-6">
         {/* Product Name */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
             Product Name *
           </label>
           <input
@@ -78,29 +78,29 @@ export default function CreateProductPage() {
                 slug: generateSlug(e.target.value)
               });
             }}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
             placeholder="Vải lụa tơ tằm cao cấp"
           />
         </div>
 
         {/* Slug (auto-generated) */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
             Slug (URL)
           </label>
           <input
             type="text"
             value={formData.slug}
             onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
+            className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg bg-gray-50 text-sm md:text-base"
             placeholder="vai-lua-to-tam-cao-cap"
           />
-          <p className="text-sm text-gray-500 mt-1">Auto-generated from product name</p>
+          <p className="text-xs md:text-sm text-gray-500 mt-1">Auto-generated from product name</p>
         </div>
 
         {/* Description */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
             Description *
           </label>
           <textarea
@@ -108,15 +108,15 @@ export default function CreateProductPage() {
             rows={4}
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
             placeholder="Mô tả chi tiết sản phẩm..."
           />
         </div>
 
         {/* Size & Origin */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
               Size *
             </label>
             <input
@@ -124,13 +124,13 @@ export default function CreateProductPage() {
               required
               value={formData.size}
               onChange={(e) => setFormData({ ...formData, size: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
               placeholder="150cm x 50m"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
               Origin *
             </label>
             <input
@@ -138,16 +138,16 @@ export default function CreateProductPage() {
               required
               value={formData.origin}
               onChange={(e) => setFormData({ ...formData, origin: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
               placeholder="Việt Nam"
             />
           </div>
         </div>
 
         {/* Price & Discount */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
               Price per Meter (đ) *
             </label>
             <input
@@ -156,13 +156,13 @@ export default function CreateProductPage() {
               min="0"
               value={formData.pricePerMeter}
               onChange={(e) => setFormData({ ...formData, pricePerMeter: Number(e.target.value) })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
               placeholder="50000"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
               Discount (%)
             </label>
             <input
@@ -171,7 +171,7 @@ export default function CreateProductPage() {
               max="100"
               value={formData.discountPercent}
               onChange={(e) => setFormData({ ...formData, discountPercent: Number(e.target.value) })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
               placeholder="10"
             />
           </div>
@@ -179,13 +179,13 @@ export default function CreateProductPage() {
 
         {/* Category */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
             Category *
           </label>
           <select
             value={formData.category}
             onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 md:px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm md:text-base"
           >
             <option value="featured">Featured</option>
             <option value="new">New</option>
@@ -195,7 +195,7 @@ export default function CreateProductPage() {
 
         {/* Images Upload */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-xs md:text-sm font-medium text-gray-700 mb-2">
             Ảnh sản phẩm * (Có thể upload nhiều ảnh cùng lúc)
           </label>
           <CloudinaryUpload
@@ -207,7 +207,7 @@ export default function CreateProductPage() {
             }}
           />
           {imageUrls.length > 0 && (
-            <p className="text-sm text-green-600 mt-2">
+            <p className="text-xs md:text-sm text-green-600 mt-2">
               ✓ Đã upload {imageUrls.length} ảnh
             </p>
           )}
@@ -222,24 +222,24 @@ export default function CreateProductPage() {
             onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
             className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
           />
-          <label htmlFor="isActive" className="text-sm font-medium text-gray-700">
+          <label htmlFor="isActive" className="text-xs md:text-sm font-medium text-gray-700">
             Active (show on website)
           </label>
         </div>
 
         {/* Actions */}
-        <div className="flex gap-4 pt-4">
+        <div className="flex flex-col md:flex-row gap-3 md:gap-4 pt-4">
           <button
             type="submit"
             disabled={loading}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+            className="w-full md:w-auto px-4 md:px-6 py-3 md:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50 font-medium text-sm md:text-base"
           >
             {loading ? 'Creating...' : 'Create Product'}
           </button>
           <button
             type="button"
             onClick={() => router.back()}
-            className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
+            className="w-full md:w-auto px-4 md:px-6 py-3 md:py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-medium text-sm md:text-base"
           >
             Cancel
           </button>

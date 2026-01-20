@@ -61,19 +61,19 @@ export default function CloudinaryUpload({
               type="button"
               onClick={() => open()}
               disabled={uploading}
-              className="w-full px-6 py-4 border-2 border-dashed border-blue-300 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 md:px-6 py-4 md:py-4 border-2 border-dashed border-blue-300 rounded-lg md:rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <div className="flex flex-col items-center justify-center gap-3">
-                <div className="p-3 bg-blue-100 rounded-full">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex flex-col items-center justify-center gap-2 md:gap-3">
+                <div className="p-2 md:p-3 bg-blue-100 rounded-full">
+                  <svg className="w-5 h-5 md:w-6 md:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                   </svg>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-800">
+                  <p className="font-semibold text-gray-800 text-sm md:text-base">
                     {uploading ? '⏳ Đang upload...' : '📤 Chọn ảnh hoặc kéo thả'}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-xs md:text-sm text-gray-500 mt-1">
                     {multiple ? 'Không giới hạn số lượng, mỗi ảnh tối đa 10MB' : 'Tối đa 10MB'}
                   </p>
                 </div>
@@ -82,7 +82,7 @@ export default function CloudinaryUpload({
 
             {/* Upload Info */}
             {uploadedUrls.length > 0 && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-700">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs md:text-sm text-blue-700">
                 ✓ Đã tải lên {uploadedUrls.length} ảnh
               </div>
             )}
@@ -90,8 +90,8 @@ export default function CloudinaryUpload({
             {/* Preview Grid */}
             {uploadedUrls.length > 0 && (
               <div>
-                <h4 className="text-sm font-semibold text-gray-700 mb-3">Ảnh đã upload:</h4>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <h4 className="text-xs md:text-sm font-semibold text-gray-700 mb-3">Ảnh đã upload:</h4>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
                   {uploadedUrls.map((url, index) => (
                     <div 
                       key={index} 
@@ -120,7 +120,7 @@ export default function CloudinaryUpload({
                         </button>
 
                         {/* Index Badge */}
-                        <div className="opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1 bg-white/90 text-gray-800 rounded-full text-xs font-semibold">
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity px-2 md:px-3 py-1 bg-white/90 text-gray-800 rounded-full text-xs font-semibold">
                           {index + 1}
                         </div>
                       </div>
