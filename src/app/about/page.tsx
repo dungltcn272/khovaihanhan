@@ -1,7 +1,10 @@
 import Header from '@/components/Header';
-import { fabrics } from '@/data/fabrics';
+import { getFabrics } from '@/lib/firebaseService';
 
-export default function About() {
+export const dynamic = 'force-dynamic';
+
+export default async function About() {
+  const fabrics = await getFabrics();
   return (
     <div className="min-h-screen">
       <Header />
@@ -28,16 +31,24 @@ export default function About() {
             >
               {/* Image */}
               <div className="relative h-64 bg-gradient-to-br from-pink-400 to-pink-500 overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  {/* Fabric pattern icon */}
-                  <svg width="150" height="150" viewBox="0 0 150 150" className="opacity-20">
-                    <pattern id={`pattern-${fabric.id}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                      <line x1="0" y1="0" x2="20" y2="20" stroke="white" strokeWidth="1" />
-                      <line x1="20" y1="0" x2="0" y2="20" stroke="white" strokeWidth="1" />
-                    </pattern>
-                    <rect width="150" height="150" fill={`url(#pattern-${fabric.id})`} />
-                  </svg>
-                </div>
+                {fabric.image ? (
+                  <img 
+                    src={fabric.image} 
+                    alt={fabric.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    {/* Fabric pattern icon fallback */}
+                    <svg width="150" height="150" viewBox="0 0 150 150" className="opacity-20">
+                      <pattern id={`pattern-${fabric.id}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <line x1="0" y1="0" x2="20" y2="20" stroke="white" strokeWidth="1" />
+                        <line x1="20" y1="0" x2="0" y2="20" stroke="white" strokeWidth="1" />
+                      </pattern>
+                      <rect width="150" height="150" fill={`url(#pattern-${fabric.id})`} />
+                    </svg>
+                  </div>
+                )}
               </div>
 
               {/* Content */}
@@ -49,7 +60,7 @@ export default function About() {
                   </h3>
                   <div className="flex items-center">
                     <span className="text-pink-600 font-bold text-xl">
-                      {fabric.pricePerMeter}
+                      {fabric.pricePerMeterMin.toLocaleString()}đ - {fabric.pricePerMeterMax.toLocaleString()}đ/m
                     </span>
                   </div>
                 </div>

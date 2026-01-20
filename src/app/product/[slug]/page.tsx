@@ -1,13 +1,15 @@
 import ProductDetailClient from '@/components/ProductDetailClient';
-import { products } from '@/data/products';
+import { getProductBySlug, getProducts } from '@/lib/firebaseService';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function ProductDetail({ params }: PageProps) {
   const { slug } = await params;
-  const product = products.find(p => p.slug === slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     return (
@@ -21,11 +23,4 @@ export default async function ProductDetail({ params }: PageProps) {
 
   return <ProductDetailClient product={product} />;
 }
-
-// Pre-render all known product pages at build time
-export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
-}
-
-// Do not generate pages for unknown slugs at runtime
 export const dynamicParams = false;

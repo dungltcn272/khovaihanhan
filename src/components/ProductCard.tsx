@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Product } from '@/data/products';
+import { Product } from '@/lib/firebaseService';
 
 interface ProductCardProps {
   product: Product;

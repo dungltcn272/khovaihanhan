@@ -1,6 +1,24 @@
 import Header from '@/components/Header';
+import { getContactInfo } from '@/lib/firebaseService';
 
-export default function Contact() {
+export const dynamic = 'force-dynamic';
+
+export default async function Contact() {
+  const contactInfo = await getContactInfo();
+
+  // Fallback data if not set
+  const info = contactInfo || {
+    avatarUrl: '',
+    storeName: 'KHO VẢI HÂN HÂN',
+    ownerName: 'Chủ Cửa Hàng',
+    phone: '0123456789',
+    email: 'contact@khovaihanhan.com',
+    address: '123 Đường ABC',
+    city: 'Hồ Chí Minh',
+    zaloLink: 'https://zalo.me/0123456789',
+    facebookLink: 'https://facebook.com/khovaihanhan',
+    description: 'Kho Vải Hân Hân là địa chỉ uy tín chuyên cung cấp các loại vải cao cấp với đa dạng chủng loại và màu sắc.'
+  };
   return (
     <div className="min-h-screen">
       <Header />
@@ -24,16 +42,26 @@ export default function Contact() {
           <div className="bg-gradient-to-br from-pink-500 to-pink-600 p-8 text-center">
             {/* Avatar */}
             <div className="flex justify-center mb-6">
-              <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-xl">
-                <svg width="80" height="80" viewBox="0 0 80 80" className="text-pink-600">
-                  <text x="40" y="55" fontSize="48" fontWeight="bold" textAnchor="middle" fill="currentColor">H</text>
-                </svg>
+              <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-xl overflow-hidden">
+                {info.avatarUrl ? (
+                  <img 
+                    src={info.avatarUrl} 
+                    alt={info.storeName}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <svg width="80" height="80" viewBox="0 0 80 80" className="text-pink-600">
+                    <text x="40" y="55" fontSize="48" fontWeight="bold" textAnchor="middle" fill="currentColor">
+                      {info.storeName.charAt(0)}
+                    </text>
+                  </svg>
+                )}
               </div>
             </div>
 
             {/* Business Name */}
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
-              KHO VẢI HÂN HÂN
+              {info.storeName}
             </h2>
             <div className="inline-block bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full">
               <p className="text-white font-medium">Uy Tín - Chất Lượng - Phong Phú</p>
@@ -45,10 +73,7 @@ export default function Contact() {
             {/* Introduction */}
             <div className="mb-8 text-center">
               <p className="text-lg text-gray-700 leading-relaxed">
-                <strong className="text-pink-600">Kho Vải Hân Hân</strong> là địa chỉ uy tín chuyên cung cấp 
-                các loại vải cao cấp với đa dạng chủng loại và màu sắc. Chúng tôi cam kết mang đến 
-                cho khách hàng những sản phẩm vải chất lượng tốt nhất với giá cả hợp lý và dịch vụ 
-                chuyên nghiệp, tận tâm.
+                <strong className="text-pink-600">{info.storeName}</strong> - {info.description}
               </p>
             </div>
 
@@ -75,10 +100,10 @@ export default function Contact() {
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">Điện Thoại</h3>
                     <a
-                      href="tel:0123456789"
+                      href={`tel:${info.phone}`}
                       className="text-pink-600 font-bold text-lg hover:underline"
                     >
-                      0123 456 789
+                      {info.phone}
                     </a>
                   </div>
                 </div>
@@ -111,7 +136,7 @@ export default function Contact() {
                   <div>
                     <h3 className="font-semibold text-gray-800 mb-1">Địa Chỉ</h3>
                     <p className="text-gray-700">
-                      Quận 1, TP. Hồ Chí Minh
+                      {info.address}, {info.city}
                     </p>
                   </div>
                 </div>
@@ -126,7 +151,7 @@ export default function Contact() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 {/* Zalo */}
                 <a
-                  href="https://zalo.me/0123456789"
+                  href={info.zaloLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl hover:from-pink-600 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
@@ -140,7 +165,7 @@ export default function Contact() {
 
                 {/* Facebook */}
                 <a
-                  href="https://www.facebook.com/khovaihanhan"
+                  href={info.facebookLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl hover:from-pink-600 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 shadow-lg"

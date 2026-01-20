@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Product } from '@/data/products';
+import { Product } from '@/lib/firebaseService';
 
 interface ProductDetailClientProps {
   product: Product;
@@ -39,14 +39,14 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {
-        setSelectedImage(prev => (prev > 0 ? prev - 1 : product.images.length - 1));
+        setSelectedImage(prev => (prev > 0 ? prev - 1 : product.imageUrls.length - 1));
       } else if (e.key === 'ArrowRight') {
-        setSelectedImage(prev => (prev < product.images.length - 1 ? prev + 1 : 0));
+        setSelectedImage(prev => (prev < product.imageUrls.length - 1 ? prev + 1 : 0));
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [product.images.length]);
+  }, [product.imageUrls.length]);
 
   // Handle touch swipe
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -60,20 +60,20 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
   const handleTouchEnd = () => {
     if (touchStart - touchEnd > 50) {
       // Swipe left
-      setSelectedImage(prev => (prev < product.images.length - 1 ? prev + 1 : 0));
+      setSelectedImage(prev => (prev < product.imageUrls.length - 1 ? prev + 1 : 0));
     }
     if (touchStart - touchEnd < -50) {
       // Swipe right
-      setSelectedImage(prev => (prev > 0 ? prev - 1 : product.images.length - 1));
+      setSelectedImage(prev => (prev > 0 ? prev - 1 : product.imageUrls.length - 1));
     }
   };
 
   const nextImage = () => {
-    setSelectedImage(prev => (prev < product.images.length - 1 ? prev + 1 : 0));
+    setSelectedImage(prev => (prev < product.imageUrls.length - 1 ? prev + 1 : 0));
   };
 
   const prevImage = () => {
-    setSelectedImage(prev => (prev > 0 ? prev - 1 : product.images.length - 1));
+    setSelectedImage(prev => (prev > 0 ? prev - 1 : product.imageUrls.length - 1));
   };
 
   return (
@@ -93,7 +93,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                 className="flex transition-transform duration-500 ease-in-out h-full"
                 style={{ transform: `translateX(-${selectedImage * 100}%)` }}
               >
-                {product.images.map((img, idx) => (
+                {product.imageUrls.map((img, idx) => (
                   <div key={idx} className="min-w-full h-full relative">
                     <Image
                       src={img}
@@ -108,7 +108,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             </div>
             
             {/* Navigation Arrows */}
-            {product.images.length > 1 && (
+            {product.imageUrls.length > 1 && (
               <>
                 <button
                   onClick={prevImage}
@@ -133,13 +133,13 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
 
             {/* Image Counter */}
             <div className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-full text-sm">
-              {selectedImage + 1} / {product.images.length}
+              {selectedImage + 1} / {product.imageUrls.length}
             </div>
           </div>
 
           {/* Thumbnail Images with 'Xem thêm' */}
           <div className="grid grid-cols-4 gap-3">
-            {product.images.slice(0, showAllThumbs ? product.images.length : 8).map((image, index) => (
+            {product.imageUrls.slice(0, showAllThumbs ? product.imageUrls.length : 8).map((image, index) => (
               <button
                 key={index}
                 onClick={() => setSelectedImage(index)}
@@ -155,7 +155,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                 />
               </button>
             ))}
-            {product.images.length > 8 && (
+            {product.imageUrls.length > 8 && (
               <button
                 onClick={() => setShowAllThumbs(prev => !prev)}
                 className="col-span-4 mt-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-lg hover:from-pink-600 hover:to-pink-700 transition-colors"
@@ -203,7 +203,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             <p className="text-sm font-semibold text-gray-700 mb-3">Bạn đã chọn:</p>
             <div className="relative h-32 w-32 rounded-lg overflow-hidden shadow-md border border-white">
               <Image
-                src={product.images[selectedImage]}
+                src={product.imageUrls[selectedImage]}
                 alt={`${product.name} - Selected`}
                 fill
                 className="object-cover"
