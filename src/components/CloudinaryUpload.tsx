@@ -4,14 +4,14 @@ import { CldUploadWidget } from 'next-cloudinary';
 import { useState } from 'react';
 
 interface CloudinaryUploadProps {
-  imageUrls: string[];
+  imageUrls?: string[]; // optional to avoid undefined length errors
   onImageUrlsChange: (urls: string[] | ((prev: string[]) => string[])) => void;
   folder?: string;
   multiple?: boolean;
 }
 
 export default function CloudinaryUpload({ 
-  imageUrls,
+  imageUrls = [],
   onImageUrlsChange,
   folder = 'fabric-store',
   multiple = false,
