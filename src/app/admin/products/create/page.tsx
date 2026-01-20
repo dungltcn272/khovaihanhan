@@ -196,17 +196,21 @@ export default function CreateProductPage() {
         {/* Images Upload */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Product Images *
+            Ảnh sản phẩm * (Có thể upload nhiều ảnh cùng lúc)
           </label>
           <CloudinaryUpload
             folder="products"
             multiple={true}
             currentImages={imageUrls}
-            onUpload={(url) => setImageUrls([...imageUrls, url])}
+            onUpload={(url) => {
+              // Function already handled in component
+            }}
           />
-          <p className="text-sm text-gray-500 mt-2">
-            Uploaded: {imageUrls.length} image(s)
-          </p>
+          {imageUrls.length > 0 && (
+            <p className="text-sm text-green-600 mt-2">
+              ✓ Đã upload {imageUrls.length} ảnh
+            </p>
+          )}
         </div>
 
         {/* Active Status */}
