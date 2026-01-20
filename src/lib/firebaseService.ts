@@ -13,6 +13,14 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 
+// Helper to make Firestore Timestamp serializable
+const toMillis = (ts: any) => {
+  if (!ts) return null;
+  if (typeof ts.toMillis === 'function') return ts.toMillis();
+  if (typeof ts.seconds === 'number') return ts.seconds * 1000 + (ts.nanoseconds ? ts.nanoseconds / 1e6 : 0);
+  return null;
+};
+
 // ============================================
 // TYPES
 // ============================================
@@ -139,8 +147,8 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
       pricePerMeter: Number(data.pricePerMeter ?? 0),
       discountPercent: Number(data.discountPercent ?? 0),
       imageUrls: Array.isArray(data.imageUrls) ? data.imageUrls : [],
-      createdAt: data.createdAt?.toMillis ? data.createdAt.toMillis() : null,
-      updatedAt: data.updatedAt?.toMillis ? data.updatedAt.toMillis() : null,
+      createdAt: toMillis(data.createdAt),
+      updatedAt: toMillis(data.updatedAt),
     } as Product;
   } catch (error) {
     console.error('Error fetching product by slug:', error);
@@ -162,8 +170,8 @@ export async function getProductById(id: string): Promise<Product | null> {
       pricePerMeter: Number(data?.pricePerMeter ?? 0),
       discountPercent: Number(data?.discountPercent ?? 0),
       imageUrls: Array.isArray(data?.imageUrls) ? data.imageUrls : [],
-      createdAt: data?.createdAt?.toMillis ? data.createdAt.toMillis() : null,
-      updatedAt: data?.updatedAt?.toMillis ? data.updatedAt.toMillis() : null,
+      createdAt: toMillis(data?.createdAt),
+      updatedAt: toMillis(data?.updatedAt),
     } as Product;
   } catch (error) {
     console.error('Error fetching product by id:', error);
