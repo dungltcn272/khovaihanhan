@@ -1,10 +1,10 @@
 import Header from '@/components/Header';
-import { getFabrics } from '@/lib/firebaseService';
+import { getActiveFabrics } from '@/lib/firebaseService';
 
 export const dynamic = 'force-dynamic';
 
 export default async function About() {
-  const fabrics = await getFabrics();
+  const fabrics = await getActiveFabrics();
   return (
     <div className="min-h-screen">
       <Header />

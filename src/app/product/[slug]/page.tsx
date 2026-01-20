@@ -1,5 +1,5 @@
 import ProductDetailClient from '@/components/ProductDetailClient';
-import { getProductBySlug, getProducts } from '@/lib/firebaseService';
+import { getProductBySlug } from '@/lib/firebaseService';
 
 interface PageProps {
   params: Promise<{ slug: string }>;

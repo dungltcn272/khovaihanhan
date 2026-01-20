@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import ProductCard from '@/components/ProductCard';
-import { getProducts, getBanners, Product, Banner } from '@/lib/firebaseService';
+import { getActiveProducts, getActiveBanners, Product, Banner } from '@/lib/firebaseService';
 
 type TabType = 'featured' | 'new' | 'bestseller';
 
@@ -21,7 +21,7 @@ export default function Home() {
   // Fetch banners from Firestore
   useEffect(() => {
     async function fetchBanners() {
-      const data = await getBanners();
+      const data = await getActiveBanners();
       setBanners(data);
     }
     fetchBanners();
@@ -31,7 +31,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchProducts() {
       setLoading(true);
-      const data = await getProducts(activeTab);
+      const data = await getActiveProducts(activeTab);
       setProducts(data);
       setLoading(false);
     }

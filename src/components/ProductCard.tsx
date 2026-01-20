@@ -27,19 +27,27 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
 
-        <div className="absolute inset-0 flex items-center justify-center">
-          {/* Fabric icon */}
-          <svg width="80" height="80" viewBox="0 0 80 80" className="opacity-30">
-            <path
-              d="M40 20 Q 60 30 55 45 T 40 70 Q 20 60 25 45 T 40 20"
-              fill="none"
-              stroke="white"
-              strokeWidth="6"
-              strokeLinecap="round"
-            />
-            <circle cx="40" cy="45" r="10" fill="white" opacity="0.5" />
-          </svg>
-        </div>
+        {product.imageUrls && product.imageUrls.length > 0 ? (
+          <img 
+            src={product.imageUrls[0]} 
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            {/* Fabric icon */}
+            <svg width="80" height="80" viewBox="0 0 80 80" className="opacity-30">
+              <path
+                d="M40 20 Q 60 30 55 45 T 40 70 Q 20 60 25 45 T 40 20"
+                fill="none"
+                stroke="white"
+                strokeWidth="6"
+                strokeLinecap="round"
+              />
+              <circle cx="40" cy="45" r="10" fill="white" opacity="0.5" />
+            </svg>
+          </div>
+        )}
       </div>
 
       {/* Product Info */}

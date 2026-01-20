@@ -103,13 +103,11 @@ export async function getProducts(category?: string): Promise<Product[]> {
       q = query(
         productsRef,
         where('category', '==', category),
-        where('isActive', '==', true),
         orderBy('createdAt', 'desc')
       );
     } else {
       q = query(
         productsRef, 
-        where('isActive', '==', true),
         orderBy('createdAt', 'desc')
       );
     }
@@ -170,7 +168,6 @@ export async function getFabrics(): Promise<Fabric[]> {
     const fabricsRef = collection(db, 'fabrics');
     const q = query(
       fabricsRef, 
-      where('isActive', '==', true),
       orderBy('createdAt', 'desc')
     );
     const snapshot = await getDocs(q);
@@ -199,6 +196,78 @@ export async function getFabricById(id: string): Promise<Fabric | null> {
   } catch (error) {
     console.error('Error fetching fabric:', error);
     return null;
+  }
+}
+
+// Dành cho public pages - chỉ lấy active items
+export async function getActiveProducts(category?: string): Promise<Product[]> {
+  try {
+    const productsRef = collection(db, 'products');
+    let q;
+    
+    if (category) {
+      q = query(
+        productsRef,
+        where('category', '==', category),
+        where('isActive', '==', true),
+        orderBy('createdAt', 'desc')
+      );
+    } else {
+      q = query(
+        productsRef, 
+        where('isActive', '==', true),
+        orderBy('createdAt', 'desc')
+      );
+    }
+    
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    } as Product));
+  } catch (error) {
+    console.error('Error fetching active products:', error);
+    return [];
+  }
+}
+
+export async function getActiveFabrics(): Promise<Fabric[]> {
+  try {
+    const fabricsRef = collection(db, 'fabrics');
+    const q = query(
+      fabricsRef, 
+      where('isActive', '==', true),
+      orderBy('createdAt', 'desc')
+    );
+    const snapshot = await getDocs(q);
+    
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    } as Fabric));
+  } catch (error) {
+    console.error('Error fetching active fabrics:', error);
+    return [];
+  }
+}
+
+export async function getActiveBanners(): Promise<Banner[]> {
+  try {
+    const bannersRef = collection(db, 'banners');
+    const q = query(
+      bannersRef, 
+      where('isActive', '==', true),
+      orderBy('order', 'asc')
+    );
+    const snapshot = await getDocs(q);
+    
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    } as Banner));
+  } catch (error) {
+    console.error('Error fetching active banners:', error);
+    return [];
   }
 }
 
@@ -378,7 +447,6 @@ export async function getBanners(): Promise<Banner[]> {
     const bannersRef = collection(db, 'banners');
     const q = query(
       bannersRef, 
-      where('isActive', '==', true),
       orderBy('order', 'asc')
     );
     const snapshot = await getDocs(q);
