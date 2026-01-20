@@ -20,10 +20,11 @@ export default function ProductCard({ product }: ProductCardProps) {
     >
       {/* Product Image */}
       <div className="relative aspect-square bg-gradient-to-br from-pink-200 to-pink-300 overflow-hidden">
-        {/* Sale Badge - Small Rectangle */}
-        {product.discountPercent && product.discountPercent > 0 && (
-          <div className="absolute top-1 right-1 z-10 bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1.5 rounded-md shadow-lg whitespace-nowrap">
-            <div className="text-xs font-bold">{product.discountPercent}%</div>
+        {/* Sale Badge */}
+        {Number(product.discountPercent || 0) > 0 && (
+          <div className="absolute top-2 right-2 z-10 bg-red-600 text-white px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 text-xs font-bold">
+            <span>Giảm</span>
+            <span>{Number(product.discountPercent)}%</span>
           </div>
         )}
 

@@ -132,9 +132,15 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     if (snapshot.empty) return null;
     
     const docData = snapshot.docs[0];
+    const data = docData.data();
     return {
       id: docData.id,
-      ...docData.data()
+      ...data,
+      pricePerMeter: Number(data.pricePerMeter ?? 0),
+      discountPercent: Number(data.discountPercent ?? 0),
+      imageUrls: Array.isArray(data.imageUrls) ? data.imageUrls : [],
+      createdAt: data.createdAt?.toMillis ? data.createdAt.toMillis() : null,
+      updatedAt: data.updatedAt?.toMillis ? data.updatedAt.toMillis() : null,
     } as Product;
   } catch (error) {
     console.error('Error fetching product by slug:', error);
@@ -149,9 +155,15 @@ export async function getProductById(id: string): Promise<Product | null> {
     
     if (!docSnap.exists()) return null;
     
+    const data = docSnap.data();
     return {
       id: docSnap.id,
-      ...docSnap.data()
+      ...data,
+      pricePerMeter: Number(data?.pricePerMeter ?? 0),
+      discountPercent: Number(data?.discountPercent ?? 0),
+      imageUrls: Array.isArray(data?.imageUrls) ? data.imageUrls : [],
+      createdAt: data?.createdAt?.toMillis ? data.createdAt.toMillis() : null,
+      updatedAt: data?.updatedAt?.toMillis ? data.updatedAt.toMillis() : null,
     } as Product;
   } catch (error) {
     console.error('Error fetching product by id:', error);
