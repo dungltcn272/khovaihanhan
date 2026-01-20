@@ -1,14 +1,12 @@
-'use server';
-
 import ProductDetailClient from '@/components/ProductDetailClient';
 import { products } from '@/data/products';
 
 interface PageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
-export default function ProductDetail({ params }: PageProps) {
-  const { slug } = params;
+export default async function ProductDetail({ params }: PageProps) {
+  const { slug } = await params;
   const product = products.find(p => p.slug === slug);
 
   if (!product) {
