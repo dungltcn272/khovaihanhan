@@ -52,7 +52,6 @@ export default function CloudinaryUpload({
         options={{
           folder: folder,
           multiple: multiple,
-          maxFiles: multiple ? 999 : 1,
           resourceType: 'image',
           clientAllowedFormats: ['jpg', 'jpeg', 'png', 'webp'],
           maxFileSize: 10000000, // 10MB
@@ -88,7 +87,7 @@ export default function CloudinaryUpload({
                     {uploading ? '⏳ Đang upload...' : '📤 Chọn ảnh hoặc kéo thả'}
                   </p>
                   <p className="text-xs md:text-sm text-gray-500 mt-1">
-                    {multiple ? 'Không giới hạn số lượng, mỗi ảnh tối đa 10MB' : 'Tối đa 10MB'}
+                    {multiple ? '⚡ Upload VÔ HẠN ảnh cùng lúc (mỗi ảnh ≤ 10MB)' : 'Tối đa 10MB'}
                   </p>
                 </div>
               </div>
