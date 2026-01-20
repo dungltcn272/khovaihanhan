@@ -101,8 +101,14 @@ export default function AdminContactInfoPage() {
           <CloudinaryUpload
             folder="contact"
             multiple={false}
-            currentImages={avatarUrl ? [avatarUrl] : []}
-            onUpload={(url) => setAvatarUrl(url)}
+            imageUrls={avatarUrl ? [avatarUrl] : []}
+            onImageUrlsChange={(urlsOrUpdater) => {
+              const nextUrls =
+                typeof urlsOrUpdater === 'function'
+                  ? urlsOrUpdater(avatarUrl ? [avatarUrl] : [])
+                  : urlsOrUpdater;
+              setAvatarUrl(nextUrls[0] ?? '');
+            }}
           />
         </div>
 

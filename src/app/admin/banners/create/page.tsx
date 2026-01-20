@@ -103,7 +103,13 @@ export default function CreateBannerPage() {
             folder="banners"
             multiple={false}
             imageUrls={imageUrl ? [imageUrl] : []}
-            onImageUrlsChange={(urls) => setImageUrl(urls[0] || '')}
+            onImageUrlsChange={(urlsOrUpdater) => {
+              const nextUrls =
+                typeof urlsOrUpdater === 'function'
+                  ? urlsOrUpdater(imageUrl ? [imageUrl] : [])
+                  : urlsOrUpdater;
+              setImageUrl(nextUrls[0] ?? '');
+            }}
           />
         </div>
 

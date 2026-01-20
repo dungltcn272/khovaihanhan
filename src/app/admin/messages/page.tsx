@@ -22,7 +22,7 @@ export default async function AdminMessagesPage() {
             <div 
               key={message.id} 
               className={`bg-white rounded-xl shadow p-6 hover:shadow-lg transition ${
-                message.status === 'unread' ? 'border-l-4 border-blue-500' : ''
+                message.status === 'new' ? 'border-l-4 border-blue-500' : ''
               }`}
             >
               <div className="flex justify-between items-start mb-4">
@@ -35,11 +35,11 @@ export default async function AdminMessagesPage() {
                 </div>
                 <div className="text-right">
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                    message.status === 'unread' 
+                    message.status === 'new' 
                       ? 'bg-blue-100 text-blue-700' 
                       : 'bg-gray-100 text-gray-600'
                   }`}>
-                    {message.status === 'unread' ? '● Chưa đọc' : '✓ Đã đọc'}
+                    {message.status === 'new' ? '● Chưa đọc' : '✓ Đã đọc'}
                   </span>
                   <p className="text-xs text-gray-400 mt-2">
                     {new Date(message.createdAt.seconds * 1000).toLocaleDateString('vi-VN')}
