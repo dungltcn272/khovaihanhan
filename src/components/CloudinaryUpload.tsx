@@ -1,7 +1,7 @@
 'use client';
 
 import { CldUploadWidget } from 'next-cloudinary';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 interface CloudinaryUploadProps {
   imageUrls: string[];
@@ -23,6 +23,16 @@ export default function CloudinaryUpload({
     onImageUrlsChange(newUrls);
   };
 
+  // Use callback to always get latest imageUrls state
+  const handleUploadSuccess = useCallback((result: any) => {
+    const url = result.info.secure_url;
+    if (multiple) {
+      onImageUrlsChange([...imageUrls, url]);
+    } else {
+      onImageUrlsChange([url]);
+    }
+  }, [imageUrls, onImageUrlsChange, multiple]);
+
   return (
     <div className="space-y-4">
       <CldUploadWidget
@@ -41,15 +51,7 @@ export default function CloudinaryUpload({
         }}
         onQueuesEnd={() => setUploading(false)}
         onUploadAdded={() => setUploading(true)}
-        onSuccess={(result: any) => {
-          const url = result.info.secure_url;
-          if (multiple) {
-            const newUrls = [...imageUrls, url];
-            onImageUrlsChange(newUrls);
-          } else {
-            onImageUrlsChange([url]);
-          }
-        }}
+        onSuccess={handleUploadSuccess}
       >
         {({ open }) => (
           <div className="space-y-4">
