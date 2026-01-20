@@ -1,11 +1,11 @@
 'use client';
 
 import { CldUploadWidget } from 'next-cloudinary';
-import { useState, useCallback, useRef } from 'react';
+import { useState } from 'react';
 
 interface CloudinaryUploadProps {
   imageUrls: string[];
-  onImageUrlsChange: (urls: string[]) => void;
+  onImageUrlsChange: (urls: string[] | ((prev: string[]) => string[])) => void;
   folder?: string;
   multiple?: boolean;
 }
@@ -17,33 +17,11 @@ export default function CloudinaryUpload({
   multiple = false,
 }: CloudinaryUploadProps) {
   const [uploading, setUploading] = useState(false);
-  const newUrlsRef = useRef<string[]>([]);
 
   const handleDelete = (index: number) => {
     const newUrls = imageUrls.filter((_, i) => i !== index);
     onImageUrlsChange(newUrls);
   };
-
-  // Track new URLs during upload
-  const handleUploadSuccess = useCallback((result: any) => {
-    const url = result.info.secure_url;
-    newUrlsRef.current.push(url);
-  }, []);
-
-  // When all uploads complete, add to imageUrls
-  const handleQueuesEnd = useCallback(() => {
-    if (newUrlsRef.current.length > 0) {
-      if (multiple) {
-        // Add all new URLs to existing ones
-        onImageUrlsChange([...imageUrls, ...newUrlsRef.current]);
-      } else {
-        // For single upload, replace with the last one
-        onImageUrlsChange([newUrlsRef.current[newUrlsRef.current.length - 1]]);
-      }
-      newUrlsRef.current = []; // Reset for next upload
-    }
-    setUploading(false);
-  }, [imageUrls, onImageUrlsChange, multiple]);
 
   return (
     <div className="space-y-4">
@@ -54,18 +32,25 @@ export default function CloudinaryUpload({
           multiple: multiple,
           resourceType: 'image',
           clientAllowedFormats: ['jpg', 'jpeg', 'png', 'webp'],
-          maxFileSize: 10000000, // 10MB
+          maxFileSize: 10000000,
           showAdvancedOptions: false,
           cropping: false,
           showPoweredBy: false,
           sources: ['local', 'url', 'camera', 'google_drive', 'dropbox'],
         }}
-        onQueuesEnd={handleQueuesEnd}
-        onUploadAdded={() => {
-          setUploading(true);
-          newUrlsRef.current = []; // Reset on new upload session
+        onUploadAdded={() => setUploading(true)}
+        onSuccess={(result: any) => {
+          const url = result.info.secure_url;
+          // Use functional update to always get latest state
+          onImageUrlsChange((prev) => {
+            if (multiple) {
+              return [...prev, url];
+            } else {
+              return [url];
+            }
+          });
         }}
-        onSuccess={handleUploadSuccess}
+        onQueuesEnd={() => setUploading(false)}
       >
         {({ open }) => (
           <div className="space-y-4">

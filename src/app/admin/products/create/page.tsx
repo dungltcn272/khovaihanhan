@@ -202,7 +202,14 @@ export default function CreateProductPage() {
             folder="products"
             multiple={true}
             imageUrls={imageUrls}
-            onImageUrlsChange={setImageUrls}
+            onImageUrlsChange={(urlsOrUpdater) => {
+              // Support both direct value and functional updater
+              if (typeof urlsOrUpdater === 'function') {
+                setImageUrls(urlsOrUpdater);
+              } else {
+                setImageUrls(urlsOrUpdater);
+              }
+            }}
           />
           {imageUrls.length > 0 && (
             <p className="text-xs md:text-sm text-green-600 mt-2">
