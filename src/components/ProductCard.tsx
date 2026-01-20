@@ -13,6 +13,9 @@ export default function ProductCard({ product }: ProductCardProps) {
     }).format(price);
   };
 
+  const imageUrls = Array.isArray(product.imageUrls) ? product.imageUrls : [];
+  const firstImage = imageUrls.length > 0 ? imageUrls[0] : null;
+
   return (
     <Link
       href={`/product/${product.slug}`}
@@ -28,9 +31,9 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
 
-        {product.imageUrls && product.imageUrls.length > 0 ? (
+        {firstImage ? (
           <img 
-            src={product.imageUrls[0]} 
+            src={firstImage} 
             alt={product.name}
             className="w-full h-full object-cover"
           />
