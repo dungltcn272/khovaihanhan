@@ -27,10 +27,12 @@ export default async function AdminMessagesPage() {
             >
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800">{message.name}</h3>
-                  <p className="text-sm text-gray-500">{message.email}</p>
-                  {message.phone && (
-                    <p className="text-sm text-gray-500">📞 {message.phone}</p>
+                  <h3 className="text-lg font-semibold text-gray-800">{message.customerName}</h3>
+                  {message.customerEmail && (
+                    <p className="text-sm text-gray-500">{message.customerEmail}</p>
+                  )}
+                  {message.customerPhone && (
+                    <p className="text-sm text-gray-500">📞 {message.customerPhone}</p>
                   )}
                 </div>
                 <div className="text-right">
@@ -52,15 +54,17 @@ export default async function AdminMessagesPage() {
               </div>
 
               <div className="mt-4 flex gap-2">
-                <a 
-                  href={`mailto:${message.email}`}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm"
-                >
-                  📧 Trả lời qua Email
-                </a>
-                {message.phone && (
+                {message.customerEmail && (
                   <a 
-                    href={`tel:${message.phone}`}
+                    href={`mailto:${message.customerEmail}`}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm"
+                  >
+                    📧 Trả lời qua Email
+                  </a>
+                )}
+                {message.customerPhone && (
+                  <a 
+                    href={`tel:${message.customerPhone}`}
                     className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-sm"
                   >
                     📞 Gọi điện
