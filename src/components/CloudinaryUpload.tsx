@@ -1,7 +1,7 @@
 'use client';
 
 import { CldUploadWidget } from 'next-cloudinary';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 interface CloudinaryUploadProps {
   imageUrls: string[];
@@ -17,20 +17,32 @@ export default function CloudinaryUpload({
   multiple = false,
 }: CloudinaryUploadProps) {
   const [uploading, setUploading] = useState(false);
+  const newUrlsRef = useRef<string[]>([]);
 
   const handleDelete = (index: number) => {
     const newUrls = imageUrls.filter((_, i) => i !== index);
     onImageUrlsChange(newUrls);
   };
 
-  // Use callback to always get latest imageUrls state
+  // Track new URLs during upload
   const handleUploadSuccess = useCallback((result: any) => {
     const url = result.info.secure_url;
-    if (multiple) {
-      onImageUrlsChange([...imageUrls, url]);
-    } else {
-      onImageUrlsChange([url]);
+    newUrlsRef.current.push(url);
+  }, []);
+
+  // When all uploads complete, add to imageUrls
+  const handleQueuesEnd = useCallback(() => {
+    if (newUrlsRef.current.length > 0) {
+      if (multiple) {
+        // Add all new URLs to existing ones
+        onImageUrlsChange([...imageUrls, ...newUrlsRef.current]);
+      } else {
+        // For single upload, replace with the last one
+        onImageUrlsChange([newUrlsRef.current[newUrlsRef.current.length - 1]]);
+      }
+      newUrlsRef.current = []; // Reset for next upload
     }
+    setUploading(false);
   }, [imageUrls, onImageUrlsChange, multiple]);
 
   return (
@@ -49,8 +61,11 @@ export default function CloudinaryUpload({
           showPoweredBy: false,
           sources: ['local', 'url', 'camera', 'google_drive', 'dropbox'],
         }}
-        onQueuesEnd={() => setUploading(false)}
-        onUploadAdded={() => setUploading(true)}
+        onQueuesEnd={handleQueuesEnd}
+        onUploadAdded={() => {
+          setUploading(true);
+          newUrlsRef.current = []; // Reset on new upload session
+        }}
         onSuccess={handleUploadSuccess}
       >
         {({ open }) => (
