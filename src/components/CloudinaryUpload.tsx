@@ -4,24 +4,23 @@ import { CldUploadWidget } from 'next-cloudinary';
 import { useState } from 'react';
 
 interface CloudinaryUploadProps {
-  onUpload: (url: string) => void;
+  imageUrls: string[];
+  onImageUrlsChange: (urls: string[]) => void;
   folder?: string;
   multiple?: boolean;
-  currentImages?: string[];
 }
 
 export default function CloudinaryUpload({ 
-  onUpload, 
+  imageUrls,
+  onImageUrlsChange,
   folder = 'fabric-store',
   multiple = false,
-  currentImages = []
 }: CloudinaryUploadProps) {
-  const [uploadedUrls, setUploadedUrls] = useState<string[]>(currentImages);
   const [uploading, setUploading] = useState(false);
 
   const handleDelete = (index: number) => {
-    const newUrls = uploadedUrls.filter((_, i) => i !== index);
-    setUploadedUrls(newUrls);
+    const newUrls = imageUrls.filter((_, i) => i !== index);
+    onImageUrlsChange(newUrls);
   };
 
   return (
@@ -31,7 +30,7 @@ export default function CloudinaryUpload({
         options={{
           folder: folder,
           multiple: multiple,
-          maxFiles: multiple ? 999 : 1, // Không giới hạn cho multi-upload
+          maxFiles: multiple ? 999 : 1,
           resourceType: 'image',
           clientAllowedFormats: ['jpg', 'jpeg', 'png', 'webp'],
           maxFileSize: 10000000, // 10MB
@@ -45,12 +44,10 @@ export default function CloudinaryUpload({
         onSuccess={(result: any) => {
           const url = result.info.secure_url;
           if (multiple) {
-            const newUrls = [...uploadedUrls, url];
-            setUploadedUrls(newUrls);
-            onUpload(url);
+            const newUrls = [...imageUrls, url];
+            onImageUrlsChange(newUrls);
           } else {
-            setUploadedUrls([url]);
-            onUpload(url);
+            onImageUrlsChange([url]);
           }
         }}
       >
@@ -81,18 +78,18 @@ export default function CloudinaryUpload({
             </button>
 
             {/* Upload Info */}
-            {uploadedUrls.length > 0 && (
+            {imageUrls.length > 0 && (
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs md:text-sm text-blue-700">
-                ✓ Đã tải lên {uploadedUrls.length} ảnh
+                ✓ Đã tải lên {imageUrls.length} ảnh
               </div>
             )}
 
             {/* Preview Grid */}
-            {uploadedUrls.length > 0 && (
+            {imageUrls.length > 0 && (
               <div>
                 <h4 className="text-xs md:text-sm font-semibold text-gray-700 mb-3">Ảnh đã upload:</h4>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
-                  {uploadedUrls.map((url, index) => (
+                  {imageUrls.map((url, index) => (
                     <div 
                       key={index} 
                       className="group relative aspect-square rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"

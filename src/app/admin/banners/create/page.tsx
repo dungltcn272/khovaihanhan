@@ -21,7 +21,7 @@ export default function CreateBannerPage() {
     e.preventDefault();
     
     if (!imageUrl) {
-      alert('Please upload a banner image');
+      alert('Vui lòng upload ảnh banner');
       return;
     }
 
@@ -32,11 +32,11 @@ export default function CreateBannerPage() {
         imageUrl,
       });
       
-      alert('Banner created successfully!');
+      alert('Tạo banner thành công!');
       router.push('/admin/banners');
     } catch (error) {
       console.error(error);
-      alert('Failed to create banner');
+      alert('Lỗi: Không tạo được banner');
     } finally {
       setLoading(false);
     }
@@ -102,8 +102,8 @@ export default function CreateBannerPage() {
           <CloudinaryUpload
             folder="banners"
             multiple={false}
-            currentImages={imageUrl ? [imageUrl] : []}
-            onUpload={(url) => setImageUrl(url)}
+            imageUrls={imageUrl ? [imageUrl] : []}
+            onImageUrlsChange={(urls) => setImageUrl(urls[0] || '')}
           />
         </div>
 

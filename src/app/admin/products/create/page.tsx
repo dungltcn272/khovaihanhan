@@ -26,7 +26,7 @@ export default function CreateProductPage() {
     e.preventDefault();
     
     if (imageUrls.length === 0) {
-      alert('Please upload at least one image');
+      alert('Vui lòng upload ít nhất 1 ảnh');
       return;
     }
 
@@ -37,11 +37,11 @@ export default function CreateProductPage() {
         imageUrls,
       });
       
-      alert('Product created successfully!');
+      alert('Tạo sản phẩm thành công!');
       router.push('/admin/products');
     } catch (error) {
       console.error(error);
-      alert('Failed to create product');
+      alert('Lỗi: Không tạo được sản phẩm');
     } finally {
       setLoading(false);
     }
@@ -201,10 +201,8 @@ export default function CreateProductPage() {
           <CloudinaryUpload
             folder="products"
             multiple={true}
-            currentImages={imageUrls}
-            onUpload={(url) => {
-              // Function already handled in component
-            }}
+            imageUrls={imageUrls}
+            onImageUrlsChange={setImageUrls}
           />
           {imageUrls.length > 0 && (
             <p className="text-xs md:text-sm text-green-600 mt-2">

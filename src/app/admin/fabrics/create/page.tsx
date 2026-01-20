@@ -25,7 +25,7 @@ export default function CreateFabricPage() {
     e.preventDefault();
     
     if (!imageUrl) {
-      alert('Please upload a fabric image');
+      alert('Vui lòng upload ảnh vải');
       return;
     }
 
@@ -36,11 +36,11 @@ export default function CreateFabricPage() {
         image: imageUrl,
       });
       
-      alert('Fabric created successfully!');
+      alert('Tạo vải thành công!');
       router.push('/admin/fabrics');
     } catch (error) {
       console.error(error);
-      alert('Failed to create fabric');
+      alert('Lỗi: Không tạo được vải');
     } finally {
       setLoading(false);
     }
@@ -182,8 +182,8 @@ export default function CreateFabricPage() {
           <CloudinaryUpload
             folder="fabrics"
             multiple={false}
-            currentImages={imageUrl ? [imageUrl] : []}
-            onUpload={(url) => setImageUrl(url)}
+            imageUrls={imageUrl ? [imageUrl] : []}
+            onImageUrlsChange={(urls) => setImageUrl(urls[0] || '')}
           />
         </div>
 
