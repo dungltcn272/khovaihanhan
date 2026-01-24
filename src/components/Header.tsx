@@ -5,7 +5,11 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
-export default function Header() {
+interface HeaderProps {
+  avatarUrl?: string;
+}
+
+export default function Header({ avatarUrl }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const menuRef = useRef<HTMLDivElement>(null);
@@ -36,11 +40,19 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center group">
             {/* Avatar */}
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-              <svg width="40" height="40" viewBox="0 0 40 40" className="text-white">
-                <circle cx="20" cy="15" r="6" fill="currentColor" />
-                <path d="M8 35 Q8 25 20 25 Q32 25 32 35" fill="currentColor" />
-              </svg>
+            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+              {avatarUrl ? (
+                <img 
+                  src={avatarUrl} 
+                  alt="Kho Vải Hân Hân"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <svg width="40" height="40" viewBox="0 0 40 40" className="text-pink-600">
+                  <circle cx="20" cy="15" r="6" fill="currentColor" />
+                  <path d="M8 35 Q8 25 20 25 Q32 25 32 35" fill="currentColor" />
+                </svg>
+              )}
             </div>
             <div className="ml-3">
               <div className="text-pink-600 font-semibold text-xl tracking-wide group-hover:text-pink-700 transition-colors">KHO VẢI HÂN HÂN</div>
@@ -113,12 +125,20 @@ export default function Header() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center gap-2 mb-4 pb-3 border-b border-pink-100">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center shadow-md">
-                  <svg width="24" height="24" viewBox="0 0 40 40" className="text-white">
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-md overflow-hidden">
+                {avatarUrl ? (
+                  <img 
+                    src={avatarUrl} 
+                    alt="Kho Vải Hân Hân"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <svg width="24" height="24" viewBox="0 0 40 40" className="text-pink-600">
                     <circle cx="20" cy="15" r="6" fill="currentColor" />
                     <path d="M8 35 Q8 25 20 25 Q32 25 32 35" fill="currentColor" />
                   </svg>
-                </div>
+                )}
+              </div>
                 <span className="text-pink-600 font-bold text-sm">KHO VẢI</span>
               </div>
               

@@ -1,8 +1,4 @@
-import dynamic from 'next/dynamic';
-
-const HeaderClient = dynamic(() => import('@/components/Header'), {
-  ssr: true,
-});
+import HeaderWrapper from '@/components/HeaderWrapper';
 
 export default function ProductLayout({
   children,
@@ -11,7 +7,7 @@ export default function ProductLayout({
 }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-pink-50">
-      <HeaderClient />
+      <HeaderWrapper />
       {children}
     </div>
   );

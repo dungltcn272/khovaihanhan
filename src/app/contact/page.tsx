@@ -1,4 +1,4 @@
-import Header from '@/components/Header';
+import HeaderWrapper from '@/components/HeaderWrapper';
 import { getContactInfo } from '@/lib/firebaseService';
 
 export const dynamic = 'force-dynamic';
@@ -21,7 +21,7 @@ export default async function Contact() {
   };
   return (
     <div className="min-h-screen">
-      <Header />
+      <HeaderWrapper />
 
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-pink-500 via-pink-500 to-pink-600 py-16">

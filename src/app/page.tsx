@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Header from '@/components/Header';
+import HeaderWrapper from '@/components/HeaderWrapper';
 import ProductCard from '@/components/ProductCard';
 import { getActiveProducts, getActiveBanners, Product, Banner } from '@/lib/firebaseService';
 
@@ -80,7 +80,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-pink-50">
-      <Header />
+      <HeaderWrapper />
 
       {/* Banner Slider */}
       <div 
